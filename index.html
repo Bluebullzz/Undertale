@@ -258,178 +258,39 @@
                     // Reiniciamos el contador de respuestas correctas a cero cada vez que se envía
                     resultado = 0;
 
-                    // Captura de los valores ingresados por el usuario en cada cuadro de texto (input)
-                    pregunta1 = document.getElementById("p1").value;
-                    pregunta2 = document.getElementById("p2").value;
-                    pregunta3 = document.getElementById("p3").value;
-                    pregunta4 = document.getElementById("p4").value;
-                    pregunta5 = document.getElementById("p5").value;
-                    pregunta6 = document.getElementById("p6").value;
-                    pregunta7 = document.getElementById("p7").value;
-                    pregunta8 = document.getElementById("p8").value;
-                    pregunta9 = document.getElementById("p9").value;
-                    pregunta10 = document.getElementById("p10").value;
-                    pregunta11 = document.getElementById("p11").value;
-                    pregunta12 = document.getElementById("p12").value;
-                    pregunta13 = document.getElementById("p13").value;
-                    pregunta14 = document.getElementById("p14").value;
-                    pregunta15 = document.getElementById("p15").value;
-                    pregunta16 = document.getElementById("p16").value;
-                    pregunta17 = document.getElementById("p17").value;
-                    pregunta18 = document.getElementById("p18").value;
-                    pregunta19 = document.getElementById("p19").value;
-                    pregunta20 = document.getElementById("p20").value;  
+            // Validación rápida de respuestas
+            if (document.getElementById("p1").value == "3") resultado++;
+            if (document.getElementById("p2").value == "1") resultado++;
+            if (document.getElementById("p3").value == "3") resultado++;
+            if (document.getElementById("p4").value == "1") resultado++;
+            if (document.getElementById("p5").value == "1") resultado++;
+            if (document.getElementById("p6").value == "2") resultado++;
+            if (document.getElementById("p7").value == "1") resultado++;
+            if (document.getElementById("p8").value == "2") resultado++;
+            if (document.getElementById("p9").value == "3") resultado++;
+            if (document.getElementById("p10").value == "3") resultado++;
+            if (document.getElementById("p11").value == "3") resultado++;
+            if (document.getElementById("p12").value == "1") resultado++;
+            if (document.getElementById("p13").value == "2") resultado++;
+            if (document.getElementById("p14").value == "1") resultado++;
+            if (document.getElementById("p15").value == "1") resultado++;
+            if (document.getElementById("p16").value == "2") resultado++;
+            if (document.getElementById("p17").value == "3") resultado++;
+            if (document.getElementById("p18").value == "2") resultado++;
+            if (document.getElementById("p19").value == "1") resultado++;
+            if (document.getElementById("p20").value == "1") resultado++;
 
-                    /* Bloque de validación por cada pregunta. Si coincide el número, suma 1 al resultado */
-                    if (pregunta1 == "3") {
-                        alert("Pregunta 1 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 1 incorrecta");
-                    }
-
-                    if (pregunta2 == "1") {
-                        alert("Pregunta 2 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 2 incorrecta");
-                    }
-
-                    if (pregunta3 == "3") {
-                        alert("Pregunta 3 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 3 incorrecta");
-                    }
-
-                    if (pregunta4 == "1") {
-                        alert("Pregunta 4 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 4 incorrecta");
-                    }
-
-                    if (pregunta5 == "1") {
-                        alert("Pregunta 5 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 5 incorrecta");
-                    }
-
-                    if (pregunta6 == "2") {
-                        alert("Pregunta 6 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 6 incorrecta");
-                    }
-
-                    if (pregunta7 == "1") {
-                        alert("Pregunta 7 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 7 incorrecta");
-                    }
-
-                    if (pregunta8 == "2") {
-                        alert("Pregunta 8 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 8 incorrecta");
-                    }
-
-                    if (pregunta9 == "3") {
-                        alert("Pregunta 9 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 9 incorrecta");
-                    }
-
-                    if (pregunta10 == "3") {
-                        alert("Pregunta 10 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 10 incorrecta");
-                    }
-
-
-                    if (pregunta11 == "3") {
-                        alert("Pregunta 11 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 11 incorrecta");
-                    }
-
-                    if (pregunta12 == "1") {
-                        alert("Pregunta 12 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 12 incorrecta");
-                    }
-
-                    if (pregunta13 == "2") {
-                        alert("Pregunta 13 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 13 incorrecta");
-                    }
-
-                    if (pregunta14 == "1") {
-                        alert("Pregunta 14 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 14 incorrecta");
-                    }
-
-                    if (pregunta15 == "1") {
-                        alert("Pregunta 15 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 15 incorrecta");
-                    }
-
-                    if (pregunta16 == "2") {
-                        alert("Pregunta 16 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 16 incorrecta");
-                    }
-
-                    if (pregunta17 == "3") {
-                        alert("Pregunta 17 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 17 incorrecta");
-                    }
-
-                    if (pregunta18 == "2") {
-                        alert("Pregunta 18 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 18 incorrecta");
-                    }
-
-                    if (pregunta19 == "1") {
-                        alert("Pregunta 19 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 19 incorrecta");
-                    }
-
-                    if (pregunta20 == "1") {
-                        alert("Pregunta 20 correcta");
-                        resultado = resultado + 1;
-                    }else {
-                        alert("Pregunta 20 incorrecta");
-                    }
-
-                    // Se lee el nombre ingresado
-                    nombre = document.getElementById("nombre").value;
-                    
-                    // Se imprime el resultado final combinando la cadena de texto con las variables
-                    document.getElementById("resultado").innerHTML = nombre + ", tu calificacion es: " + resultado;
-                    
-                    // Modifica dinámicamente el estilo CSS para hacer aparecer el botón de reinicio
-                    document.getElementById("btnReiniciar").style.display = "inline-block";
+            // Muestra el resultado en pantalla
+            nombre = document.getElementById("nombre").value;
+            if(nombre === "") { nombre = "Humano"; }
+            
+            document.getElementById("resultado").innerHTML = nombre + ", tu calificación es: " + resultado + " / 20";
+            
+            // Hace visible el botón de reiniciar
+            document.getElementById("btnReiniciar").style.display = "inline-block";
+            
+            // Un pequeño aviso al final
+            alert("¡Examen calificado con éxito!");
                 }
                 
                 /* Función encargada de limpiar todo el formulario */
