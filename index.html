@@ -4,261 +4,366 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examen Undertale</title>
-     <style>
+    <style>
         /* --- ESTILOS VISUALES (CSS) --- */
-        
-        /* Configuración general del fondo de la página y la fuente tipográfica */
-        body { font-family: 'Press Start 2P', 'Courier New', monospace, sans-serif; margin: 20px; line-height: 1.6; font-size: 16px;  background-color: #f5ebeb; }
-        
-        /* Clases para el margen de las preguntas (aunque actualmente usas etiquetas <p>) */
-         .pregunta { margin-bottom: 15px; }
-        .pregunta { margin-bottom: 15px; }
-        .titulo { font-weight: bold; font-size: 1.3em; }
-        
-        /* Estilo para el texto que muestra el puntaje final (Color verde y letra negrita) */
-        #resultado { font-size: 1.3em; color: rgb(90, 163, 90); font-weight: bold; margin-top: 15px; }
-        
-        /* El botón de volver a hacer empieza oculto por defecto usando 'display: none' */
-        #btnReiniciar { 
-            display: none; 
-            margin-left: 10px; 
+
+        /* Configuración general del fondo (Estilo Undertale Oscuro) */
+        body { 
+            font-family: 'Press Start 2P', 'Courier New', monospace, sans-serif; 
+            margin: 0; 
+            padding: 40px 20px;
+            line-height: 1.8; 
+            font-size: 14px; 
+            background-color: #0c0c0c; /* Un negro un poco más profundo */
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* Título Principal con un ligero efecto de brillo misterioso */
+        h1 {
+            font-size: 35px; 
+            margin-bottom: 40px; 
+            color: #ffeb3b; 
+            text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
+            line-height: 1.4;
+        }
+
+        /* CONTENEDOR PRINCIPAL: Envuelve todo en un cuadro estilo menú del juego */
+        .contenedor-juego {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #000000;
+            border: 4px solid #fdfabf; /* Borde clásico de los cuadros de diálogo */
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estilo para cada bloque de pregunta */
+        .pregunta { 
+            margin-bottom: 35px; 
+            text-align: left; /* El texto de las preguntas se lee mejor alineado a la izquierda */
+            background: #111;
+            padding: 15px;
+            border-left: 5px solid #ff3b3b; /* Detalle rojo determinación a un lado */
+        }
+
+        /* Inputs (Cajas de respuesta) estilo videojuego retro */
+        input[type="text"] {
+            background-color: #000000;
+            border: 2px solid #fcfd9c;
+            color: #f1f9ae;
+            font-family: 'Press Start 2P', monospace;
+            padding: 6px;            
+            font-size: 12px;            
+            width: 200px;               
+            margin-top: 10px;
+            display: block;             
+            outline: none;
+            text-align: center;
+            box-sizing: border-box;
+            margin: 10px auto 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Cuando haces clic en la caja de texto, el borde se vuelve amarillo y brilla */
+        input[type="text"]:focus {
+            border-color: #ffeb3b;
+            box-shadow: 0 0 12px rgba(255, 235, 59, 0.8);
+        }
+
+        /* Estilo para las opciones de respuesta */
+        .opcion {
+            margin: 8px 0;
+            color: #cccccc;
+            font-size: 12px;
+        }
+
+        /* Estilo para el puntaje final */
+        #resultado { 
+            font-size: 1.5em; 
+            color: #00ffcc; /* Un verde cian brillante que resalta en la oscuridad */
+            font-weight: bold; 
+            margin-top: 25px; 
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+        }
+
+       /* --- ESTILO PARA EL BOTÓN DE ENVIAR / CALIFICAR --- */
+       #btnEnviar {
+            background-color: #000000;
+            color: #ffeb3b;              
+            border: 2px solid #ffeb3b;   
+            font-family: 'Press Start 2P', monospace;
+            padding: 8px 16px;            
+            font-size: 12px;
+            cursor: pointer;
+            display: block;             
+            margin: 20px auto;           
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        /* Efecto cuando pasas el mouse sobre Enviar */
+        #btnEnviar:hover {
+            background-color: #ffeb3b;    
+            color: #000000;              
+            box-shadow: 0 0 10px #ffeb3b; 
+        }
+
+        /* --- ESTILO PARA EL BOTÓN DE VOLVER A HACERLO (REINICIAR) --- */
+        #btnReiniciar {
+            display: none;                
+            background-color: #000000;
+            color: #ff3b3b;               
+            border: 2px solid #ff3b3b;    
+            font-family: 'Press Start 2P', monospace;
+            padding: 8px 16px;            
+            font-size: 12px;              
+            cursor: pointer;
+            margin: 20px auto;            
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        /* Efecto cuando pasas el mouse sobre Volver a hacerlo */
+        #btnReiniciar:hover {
+            background-color: #ff3b3b;    
+            color: #000000;               
+            box-shadow: 0 0 10px #ff3b3b; 
         }
     </style>
 </head>
 <body>
     <h1>¿Que tanto sabes de undertale? (EXAMEN)</h1>
-        <p>
-            <script>
-                /* --- DECLARACIÓN DE VARIABLES GLOBALES --- */
-                /* Aquí se crean los contenedores en memoria para guardar el nombre, las 20 respuestas y el puntaje acumulado */
-                var nombre, pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10, pregunta11, pregunta12, pregunta13, pregunta14, pregunta15, pregunta16, pregunta17, pregunta18, pregunta19, pregunta20, resultado = 0;
-            </script>
-                 <p id="lblnombre">Escribe tu nombre:
-                  <input type="text" id="nombre">
-                 </p>
-                 <p id="lblnombre">Lee detenidamente cada pregunta y elige una de las posibles respuestas
-                 </p> </p>
-                 
-                 <p id="lblnombre">1.¿Como se llama el personaje principal de Undertale?
-                    <br>
-                    1) Papyrus
-                    <br>
-                    2) Mettaton
-                    <br>
-                    3) Frisk
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p1">
-                    </p>
-                 </p> </p>
-                <p id="lblnombre" >2.¿Cual es la habilidad principal del protagonista? </p>     
-                    <br>
-                    1) Determinacion
-                    <br>
-                    2) Justicia
-                    <br>
-                    3) Empatia
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p2">
-                    </p>
-                <p id="lblnombre" >3.¿Como se llama el personaje que intenta ayudate en las ruinas? </p>     
-                    <br>
-                    1) Froggi
-                    <br>
-                    2) Fantasma
-                    <br>
-                    3) Toriel
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p3">
-                    </p>   
-                <p id="lblnombre" >4.¿En cuanto tiempo se desarrolla el juego? </p>     
-                    <br>
-                    1) 1 Dia
-                    <br>
-                    2) 7 Dias
-                    <br>
-                    3) 1 Noche
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p4">
-                    </p>
-                <p id="lblnombre" >5.¿Cuantas almas humanas tienen capturado los mounstruos? </p>     
-                    <br>
-                    1) 7
-                    <br>
-                    2) 5
-                    <br>
-                    3) 0
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p5">
-                    </p>
-                <p id="lblnombre" >6.¿Que tantas rutas del juego existen para completar el juego? </p>     
-                    <br>
-                    1) 2
-                    <br>
-                    2) 3
-                    <br>
-                    3) 1
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p6">
-                    </p>
-                <p id="lblnombre" >7.¿Como de llama el rey de los mounstruos? </p>     
-                    <br>
-                    1) Asghord
-                    <br>
-                    2) Sans
-                    <br>
-                    3) Flowy
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p7">
-                    </p>
-                <p id="lblnombre" >8.¿Como se llama el primer humano que cayo? </p>     
-                    <br>
-                    1) Frisk
-                    <br>
-                    2) Chara
-                    <br>
-                    3) Clover
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p8">
-                    </p>
-                <p id="lblnombre" >9.¿Como se llama el hijo de Asghord y Toriel? </p>     
-                    <br>
-                    1) Chara
-                    <br>
-                    2) Sans
-                    <br>
-                    3) Asriel
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p9">
-                    </p>
-                <p id="lblnombre" >10.¿Quien es el unico que recuerda todo? </p>     
-                    <br>
-                    1) Sans
-                    <br>
-                    2) Flowy
-                    <br>
-                    3) Chara
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p10">
-                    </p>
-                <p id="lblnombre" >11.¿Quien es el que intenta poseer todas las almas humanas? </p>     
-                    <br>
-                    1) Chara
-                    <br>
-                    2) Asghord
-                    <br>
-                    3) Flowy
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p11">
-                    </p>
-                <p id="lblnombre" >12.¿Que mounstruo pudo obtener el poder de la determinacion? </p>     
-                    <br>
-                    1) Undyne
-                    <br>
-                    2) Sans
-                    <br>
-                    3) Asghord
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p12">
-                    </p>
-                <p id="lblnombre" >13.¿Quien es verdaderamente Flowy? </p>     
-                    <br>
-                    1) Chara
-                    <br>
-                    2) Asriel
-                    <br>
-                    3) Alphis
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p13">
-                    </p>
-                <p id="lblnombre" >14.¿Como aparece el creador de undertale? </p>     
-                    <br>
-                    1) Perrito
-                    <br>
-                    2) Araña
-                    <br>
-                    3) Un Alma
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p14">
-                    </p>
-                <p id="lblnombre" >15.¿Cuantos personajes principales hay en undertale? </p>     
-                    <br>
-                    1) 11
-                    <br>
-                    2) 20
-                    <br>
-                    3) 6
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p15">
-                    </p>
-                <p id="lblnombre" >16.¿Cuantos enemigos usuales hay en undertale? </p>     
-                    <br>
-                    1) 40
-                    <br>
-                    2) 35
-                    <br>
-                    3) 37
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p16">
-                    </p>
-                <p id="lblnombre" >17.¿Cuantos enemigos en general hay en undertale? </p>     
-                    <br>
-                    1) 70
-                    <br>
-                    2) 69
-                    <br>
-                    3) 77
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p17">
-                    </p>
-                <p id="lblnombre" >18.¿Cuantos items de curacion hay? </p>     
-                    <br>
-                    1) 35
-                    <br>
-                    2) 29
-                    <br>
-                    3) 27
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p18">
-                    </p>
-                <p id="lblnombre" >19.¿Cuantos ataques tiene Sans? </p>     
-                    <br>
-                    1) 22
-                    <br>
-                    2) 30
-                    <br>
-                    3) 19
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p19">
-                    </p>
-                <p id="lblnombre" >20.¿Cual es el limite de espectadores que tiene metaton? </p>     
-                    <br>
-                    1) 10,000
-                    <br>
-                    2) 15,000
-                    <br>
-                    3) 9,000
-                    <p id="lblnombre">Respuesta:
-                        <input type="text" id="p20">
-                    </p>
-                
-                <p>
-                    <br><br>
-                    <input type="submit" value="Enviar" onclick="enviar()">
-                    
-                    <input type="button" id="btnReiniciar" value="Volver a hacerlo" onclick="reiniciar()">
-                    
-                    <p id="resultado"></p>
-                </p>
-                
-            <script>
-                /* --- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) --- */
+    
+    <script>
+        /* --- DECLARACIÓN DE VARIABLES GLOBALES --- */
+        var nombre, pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10, pregunta11, pregunta12, pregunta13, pregunta14, pregunta15, pregunta16, pregunta17, pregunta18, pregunta19, pregunta20, resultado = 0;
+    </script>
 
-                /* Función principal para calificar el examen */
-                function enviar() {
-                    // Reiniciamos el contador de respuestas correctas a cero cada vez que se envía
-                    resultado = 0;
+    <div class="contenedor-juego">
 
-            // Validación rápida de respuestas
+        <p id="lblnombre">Escribe tu nombre:
+            <input type="text" id="nombre">
+        </p>
+        
+        <p id="lblnombre">Lee detenidamente cada pregunta y elige una de las posibles respuestas</p> 
+        
+        <p id="lblnombre">1.¿Como se llama el personaje principal de Undertale?
+            <br>
+            1) Papyrus
+            <br>
+            2) Mettaton
+            <br>
+            3) Frisk
+            <p id="lblnombre">Respuesta:
+                <input type="text" id="p1">
+            </p>
+        </p>
+
+        <p id="lblnombre">2.¿Cual es la habilidad principal del protagonista? </p>     
+        1) Determinacion
+        <br>
+        2) Justicia
+        <br>
+        3) Empatia
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p2">
+        </p>
+
+        <p id="lblnombre">3.¿Como se llama el personaje que intenta ayudate en las ruinas? </p>    
+        1) Froggi
+        <br>
+        2) Fantasma
+        <br>
+        3) Toriel
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p3">
+        </p>   
+
+        <p id="lblnombre">4.¿En cuanto tiempo se desarrolla el juego? </p>     
+        1) 1 Dia
+        <br>
+        2) 7 Dias
+        <br>
+        3) 1 Noche
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p4">
+        </p>
+
+        <p id="lblnombre">5.¿Cuantas almas humanas tienen capturado los mounstruos? </p>     
+        1) 7
+        <br>
+        2) 5
+        <br>
+        3) 0
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p5">
+        </p>
+
+        <p id="lblnombre">6.¿Que tantas rutas del juego existen para completar el juego? </p>     
+        1) 2
+        <br>
+        2) 3
+        <br>
+        3) 1
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p6">
+        </p>
+
+        <p id="lblnombre">7.¿Como de llama el rey de los mounstruos? </p>     
+        1) Asghord
+        <br>
+        2) Sans
+        <br>
+        3) Flowy
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p7">
+        </p>
+
+        <p id="lblnombre">8.¿Como se llama el primer humano que cayo? </p>     
+        1) Frisk
+        <br>
+        2) Chara
+        <br>
+        3) Clover
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p8">
+        </p>
+
+        <p id="lblnombre">9.¿Como se llama el hijo de Asghord y Toriel? </p>     
+        1) Chara
+        <br>
+        2) Sans
+        <br>
+        3) Asriel
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p9">
+        </p>
+
+        <p id="lblnombre">10.¿Quien es el unico que recuerda todo? </p>     
+        1) Sans
+        <br>
+        2) Flowy
+        <br>
+        3) Chara
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p10">
+        </p>
+
+        <p id="lblnombre">11.¿Quien es el que intenta poseer todas las almas humanas? </p>    
+        1) Chara
+        <br>
+        2) Asghord
+        <br>
+        3) Flowy
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p11">
+        </p>
+
+        <p id="lblnombre">12.¿Que mounstruo pudo obtener el poder de la determinacion? </p>     
+        1) Undyne
+        <br>
+        2) Sans
+        <br>
+        3) Asghord
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p12">
+        </p>
+
+        <p id="lblnombre">13.¿Quien es verdaderamente Flowy? </p>     
+        1) Chara
+        <br>
+        2) Asriel
+        <br>
+        3) Alphis
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p13">
+        </p>
+
+        <p id="lblnombre">14.¿Como aparece el creador de undertale? </p>     
+        1) Perrito
+        <br>
+        2) Araña
+        <br>
+        3) Un Alma
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p14">
+        </p>
+
+        <p id="lblnombre">15.¿Cuantos personajes principales hay en undertale? </p>     
+        1) 11
+        <br>
+        2) 20
+        <br>
+        3) 6
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p15">
+        </p>
+
+        <p id="lblnombre">16.¿Cuantos enemigos usuales hay en undertale? </p>     
+        1) 40
+        <br>
+        2) 35
+        <br>
+        3) 37
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p16">
+        </p>
+
+        <p id="lblnombre">17.¿Cuantos enemigos en general hay en undertale? </p>     
+        1) 70
+        <br>
+        2) 69
+        <br>
+        3) 77
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p17">
+        </p>
+
+        <p id="lblnombre">18.¿Cuantos items de curacion hay? </p>    
+        1) 35
+        <br>
+        2) 29
+        <br>
+        3) 27
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p18">
+        </p>
+
+        <p id="lblnombre">19.¿Cuantos ataques tiene Sans? </p>     
+        1) 22
+        <br>
+        2) 30
+        <br>
+        3) 19
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p19">
+        </p>
+
+        <p id="lblnombre">20.¿Cual es el limite de espectadores que tiene metaton? </p>     
+        1) 10,000
+        <br>
+        2) 15,000
+        <br>
+        3) 9,000
+        <p id="lblnombre">Respuesta:
+            <input type="text" id="p20">
+        </p>
+        
+        <br><br>
+        <input type="button" id="btnEnviar" value="Enviar" onclick="enviar()">
+        
+        <input type="button" id="btnReiniciar" value="Volver a hacerlo" onclick="reiniciar()">
+        
+        <p id="resultado"></p>
+
+    </div> <script>
+        /* --- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) --- */
+
+        function enviar() {
+            resultado = 0;
+
             if (document.getElementById("p1").value == "3") resultado++;
             if (document.getElementById("p2").value == "1") resultado++;
             if (document.getElementById("p3").value == "3") resultado++;
@@ -280,37 +385,25 @@
             if (document.getElementById("p19").value == "1") resultado++;
             if (document.getElementById("p20").value == "1") resultado++;
 
-            // Muestra el resultado en pantalla
             nombre = document.getElementById("nombre").value;
             if(nombre === "") { nombre = "Humano"; }
             
             document.getElementById("resultado").innerHTML = nombre + ", tu calificación es: " + resultado + " / 20";
             
-            // Hace visible el botón de reiniciar
-            document.getElementById("btnReiniciar").style.display = "inline-block";
+            // Cambiado a block para que mantenga el centrado CSS
+            document.getElementById("btnReiniciar").style.display = "block"; 
             
-            // Un pequeño aviso al final
             alert("¡Examen calificado con éxito!");
-                }
-                
-                /* Función encargada de limpiar todo el formulario */
-                function reiniciar() {
-                    // Ciclo for que recorre los IDs del 'p1' al 'p20' asignándoles un valor vacío ""
-                    for (var i = 1; i <= 20; i++) {
-                        document.getElementById("p" + i).value = "";
-                    }
-            
-                // Se limpia el cuadro del nombre y el texto del resultado acumulado
-                document.getElementById("nombre").value = "";
-                document.getElementById("resultado").innerHTML = "";
-            
-                // Oculta de nuevo el botón de reiniciar cambiando su visualización a 'none'
-                document.getElementById("btnReiniciar").style.display = "none";
         }
-
-            </script>        
-        </p>
-    </h1>
-    
+        
+        function reiniciar() {
+            for (var i = 1; i <= 20; i++) {
+                document.getElementById("p" + i).value = "";
+            }
+            document.getElementById("nombre").value = "";
+            document.getElementById("resultado").innerHTML = "";
+            document.getElementById("btnReiniciar").style.display = "none";
+        }
+    </script>        
 </body>
 </html>
