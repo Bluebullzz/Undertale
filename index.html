@@ -61,7 +61,7 @@
             text-align: center;
             box-sizing: border-box;
             margin: 10px auto 0;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* Transición suave para los cambios de estado */
         }
 
         /* Cuando haces clic en la caja de texto, el borde se vuelve amarillo y brilla */
@@ -110,7 +110,7 @@
 
         /* --- ESTILO PARA EL BOTÓN DE VOLVER A HACERLO (REINICIAR) --- */
         #btnReiniciar {
-            display: none;                
+            display: none; /* Oculto por defecto hasta que se califique el examen */               
             background-color: #000000;
             color: #ff3b3b;               
             border: 2px solid #ff3b3b;    
@@ -135,7 +135,7 @@
     <h1>¿Qué tanto sabes de Undertale? (EXAMEN)</h1>
     
     <script>
-        /* --- DECLARACIÓN DE VARIABLES GLOBALES --- */
+        // Se definen las variables que alojarán el nombre del usuario, sus 20 respuestas y el contador de puntos.
         var nombre, pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10, pregunta11, pregunta12, pregunta13, pregunta14, pregunta15, pregunta16, pregunta17, pregunta18, pregunta19, pregunta20, resultado = 0;
     </script>
 
@@ -359,11 +359,13 @@
     </div> 
     
     <script>
-        /* --- LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) --- */
 
+        // Función que evalúa las respuestas y calcula la puntuación final
         function enviar() {
+            // Se inicializa/reinicia el puntaje a 0 en cada ejecución
             resultado = 0;
 
+            // Captura de los valores introducidos en cada caja de texto mediante su ID
             pregunta1 = document.getElementById("p1").value;
             pregunta2 = document.getElementById("p2").value;
             pregunta3 = document.getElementById("p3").value;
@@ -385,7 +387,8 @@
             pregunta19 = document.getElementById("p19").value;
             pregunta20 = document.getElementById("p20").value;  
 
-            /* Bloque de validación por cada pregunta. Si coincide el número, suma 1 al resultado */
+            /* Bloques condicionales de validación. Si el valor coincide con la clave correcta, 
+               se notifica el acierto y se suma 1 punto; de lo contrario, manda alerta de error. */
             if (pregunta1 == "3") {
                 alert("Pregunta 1 correcta");
                 resultado = resultado + 1;
@@ -526,21 +529,32 @@
                 alert("Pregunta 20 incorrecta");
             }
 
+            // Obtiene el nombre del usuario
             nombre = document.getElementById("nombre").value;
+            // Si el campo de nombre se dejó vacío, se le asigna por defecto "Humano"
             if(nombre === "") { nombre = "Humano"; }
             
+            // Imprime los resultados en la etiqueta con ID "resultado"
             document.getElementById("resultado").innerHTML = nombre + ", tu calificación es: " + resultado + " / 20";
+            
+            // Hace visible el botón de reiniciar cambiando su propiedad CSS de visualización
             document.getElementById("btnReiniciar").style.display = "block"; 
             
+            // Notificación flotante de guardado final
             alert("¡Examen calificado con éxito!");
         }
         
+        // Función encargada de limpiar y reestablecer los valores de la página web
         function reiniciar() {
+            // Ciclo iterativo 'for' que recorre desde el 1 al 20 para vaciar todas las cajas de texto 'p1' a 'p20'
             for (var i = 1; i <= 20; i++) {
                 document.getElementById("p" + i).value = "";
             }
+            // Borra la caja de entrada del nombre
             document.getElementById("nombre").value = "";
+            // Limpia el mensaje de calificación en pantalla
             document.getElementById("resultado").innerHTML = "";
+            // Vuelve a ocultar el botón de reinicio
             document.getElementById("btnReiniciar").style.display = "none";
         }
     </script>        
